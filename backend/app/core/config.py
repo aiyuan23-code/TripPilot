@@ -49,6 +49,21 @@ class Settings(BaseSettings):
     llm_structured_output_method: Literal[
         "function_calling", "json_mode", "json_schema"
     ] = "function_calling"
+    cors_origins: str = Field(
+        default="http://localhost:5173,http://127.0.0.1:5173",
+        description="Comma-separated browser origins allowed to call the API",
+    )
+
+    @property
+    def allowed_cors_origins(self) -> list[str]:
+        """Return normalized and deduplicated frontend origins."""
+        return list(
+            dict.fromkeys(
+                origin.strip()
+                for origin in self.cors_origins.split(",")
+                if origin.strip()
+            )
+        )
 
     def require_amap_api_key(self) -> str:
         """Return the API key or fail before starting the MCP subprocess."""
