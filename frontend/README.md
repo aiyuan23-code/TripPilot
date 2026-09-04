@@ -21,3 +21,15 @@ VITE_AMAP_SECURITY_CODE=...
 
 后端 `.env` 中的 `AMAP_MAPS_API_KEY` 是 Web Service Key，不能直接代替前端 JS API Key。
 
+## 生产构建
+
+生产环境建议通过服务端代理保护高德安全密钥：
+
+```bash
+cp .env.production.example .env.production
+npm ci
+npm run build
+```
+
+`VITE_AMAP_SERVICE_HOST=/_AMapService` 会让浏览器通过同域 Nginx
+代理访问高德服务，避免把 `VITE_AMAP_SECURITY_CODE` 编译到前端产物中。

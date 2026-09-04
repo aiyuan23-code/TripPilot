@@ -42,8 +42,7 @@ export function getApiErrorMessage(error: unknown): string {
   }
 
   if (!error.response) {
-    return '无法连接后端服务，请确认 FastAPI 已在 8000 端口启动。'
+    return '暂时无法连接旅行规划服务，请稍后重试。'
   }
   return `请求失败（HTTP ${error.response.status}），请稍后重试。`
 }
-

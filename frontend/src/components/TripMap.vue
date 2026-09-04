@@ -56,8 +56,14 @@ async function renderMap(): Promise<void> {
   map?.destroy()
   map = null
 
+  const configuredServiceHost = import.meta.env.VITE_AMAP_SERVICE_HOST?.trim()
+  const serviceHost = configuredServiceHost?.startsWith('/')
+    ? `${window.location.origin}${configuredServiceHost}`
+    : configuredServiceHost
   const securityCode = import.meta.env.VITE_AMAP_SECURITY_CODE?.trim()
-  if (securityCode) {
+  if (serviceHost) {
+    window._AMapSecurityConfig = { serviceHost }
+  } else if (securityCode) {
     window._AMapSecurityConfig = { securityJsCode: securityCode }
   }
 
@@ -109,4 +115,3 @@ onBeforeUnmount(() => map?.destroy())
     </div>
   </div>
 </template>
-

@@ -4,6 +4,7 @@ interface ImportMetaEnv {
   readonly VITE_API_BASE_URL?: string
   readonly VITE_AMAP_JS_KEY?: string
   readonly VITE_AMAP_SECURITY_CODE?: string
+  readonly VITE_AMAP_SERVICE_HOST?: string
 }
 
 interface ImportMeta {
@@ -12,7 +13,7 @@ interface ImportMeta {
 
 interface Window {
   _AMapSecurityConfig?: {
-    securityJsCode: string
+    securityJsCode?: string
+    serviceHost?: string
   }
 }
-
